@@ -55,6 +55,7 @@ func part2() {
 	lines, err := aoccommon.ReadLines("input")
 	aoccommon.CheckError(err)
 
+	// Check each string against all the strings after it
 	for index, line1 := range lines {
 		for _, line2 := range lines[index+1:] {
 			if are_one_character_different(line1, line2) {
