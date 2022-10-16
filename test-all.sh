@@ -14,6 +14,9 @@ printf "%11sDay   Part   Result   Duration\n" ""
 
 for i in $(seq 1 25); do
   cd "$YEAR/$i" || exit
+
+  make aoc-day >/dev/null
+  
   for part in 1 2; do
     [[ $part -eq 1 ]] && printf 'Checking%5s' "$i" || printf '%13s' ""
     printf '%7d' "$part"

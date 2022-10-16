@@ -27,3 +27,10 @@ do
       cp -a "day-skeleton/${base}" "${YEAR}/${DAY}/"
     fi
 done
+
+# Configure new package name
+sed -i "s@MODULE_NAME@github.com/RoystonS/aoc-go/${YEAR}/${DAY}@" "${YEAR}/${DAY}/go.mod"
+
+# Add the package to the Go workspace
+cd "${YEAR}/${DAY}"
+go work use .

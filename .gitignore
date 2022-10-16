@@ -1,1 +1,4 @@
 .env
+
+# Each day builds to a binary named 'aoc-day'
+aoc-day

@@ -1,0 +1,7 @@
+module MODULE_NAME
+
+go 1.19
+
+require aoccommon v0.0.0
+
+replace aoccommon v0.0.0 => ../../aoccommon

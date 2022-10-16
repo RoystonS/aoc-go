@@ -22,5 +22,11 @@ Go environment.
 
 ## To solve a new day
 
-* Inside the dev container, run `scrape.sh <year> <day>`
-  * This will fetch the assignment details and input, into `<year>/<day>`
+* Inside the dev container, run `./setup-day.sh <year> <day>`
+  * This will fetch the assignment details and input, into `<year>/<day>` and set up a basic Go skeleton for the day
+* To run the code for a part for a day:
+  * `cd <year>/<day>`
+  * `make <part>` (e.g. `make 1`)
+
+## To run all days for a year, checking correctness and performance
+* `./test-all.sh <year>`

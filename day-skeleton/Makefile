@@ -1,5 +1,14 @@
-1:
-	go run main1.go common.go <input
+SRCS := $(wildcard *.go) $(wildcard ../../aoccommon/*.go)
+OUT := aoc-day
 
-2:
-	go run main2.go common.go <input
+${OUT}: ${SRCS}
+	go build -o ${OUT}
+
+clean:
+	rm -f ${OUT}
+
+1: ${OUT}
+	./${OUT} <input 1
+
+2: ${OUT}
+	./${OUT} <input 2
