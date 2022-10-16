@@ -14,7 +14,7 @@ func count_letters(s string) map[rune]int {
 }
 
 // Calculates the AOC 2018 day 2 checksum for a series of strings
-func compute_checksum(words []string) int {
+func compute_checksum(words []string) (checksum int) {
 	twos := 0
 	threes := 0
 

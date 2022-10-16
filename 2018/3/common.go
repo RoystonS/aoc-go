@@ -39,9 +39,7 @@ func parse_line(line string) Claim {
 		width: w, height: h}
 }
 
-func read_claims(filename string) ([]Claim, error) {
-	claims := []Claim{}
-
+func read_claims(filename string) (claims []Claim, err error) {
 	lines, err := aoccommon.ReadLines(filename)
 	if err == nil {
 
@@ -55,10 +53,7 @@ func read_claims(filename string) ([]Claim, error) {
 
 // Applies a series of claims to fabric, returning
 // the number of times each square was claimed
-func apply_claims(claims []Claim) [1000][1000]int {
-
-	var tiles [1000][1000]int
-
+func apply_claims(claims []Claim) (tiles [1000][1000]int) {
 	// Apply all the claims to the fabric
 	for _, claim := range claims {
 		for y := claim.top; y < claim.top+claim.height; y++ {
