@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"sync"
 	"unicode"
 
 	"aoccommon"
@@ -12,7 +13,7 @@ import (
 func getUniqueRunes(s string) map[rune]bool {
 	uniqueRunes := map[rune]bool{}
 	for _, unit := range s {
-		uniqueRunes[unit] = true
+		uniqueRunes[unicode.ToLower(unit)] = true
 	}
 	return uniqueRunes
 }
@@ -34,17 +35,31 @@ func removeAllOccurrencesOfRuneFromStringCaseInsensitively(s string, delChar run
 func minimizeReaction(polymer string) int {
 	uniqueUnits := getUniqueRunes(polymer)
 
+	var wg sync.WaitGroup
+	var mut sync.Mutex
+
 	// Work through each unit type, to see which one we need to
 	// remove to obtain the shortest reacted result
 	smallestReactedPolymerLength := len(polymer)
 	for unit := range uniqueUnits {
-		filteredPolymer := removeAllOccurrencesOfRuneFromStringCaseInsensitively(polymer, unit)
-		_, reactedPolymerLength := fullyReact(filteredPolymer)
+		wg.Add(1)
 
-		if reactedPolymerLength < smallestReactedPolymerLength {
-			smallestReactedPolymerLength = reactedPolymerLength
-		}
+		unit := unit
+
+		go func() {
+			defer wg.Done()
+			filteredPolymer := removeAllOccurrencesOfRuneFromStringCaseInsensitively(polymer, unit)
+			_, reactedPolymerLength := fullyReact(filteredPolymer)
+
+			mut.Lock()
+			defer mut.Unlock()
+			if reactedPolymerLength < smallestReactedPolymerLength {
+				smallestReactedPolymerLength = reactedPolymerLength
+			}
+		}()
 	}
+
+	wg.Wait()
 
 	return smallestReactedPolymerLength
 }
