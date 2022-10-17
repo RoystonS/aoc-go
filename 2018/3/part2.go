@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"sync"
 
 	"aoccommon"
 )
@@ -23,11 +25,22 @@ func part2() {
 
 	tiles := apply_claims(claims)
 
+	var wg sync.WaitGroup
+
 	// Find the claim where all of its tiles are count 1
 	for _, claim := range claims {
-		if all_tiles_count_one(tiles, claim) {
-			fmt.Println(claim.id)
-			return
-		}
+		claim := claim
+
+		wg.Add(1)
+
+		go func() {
+			defer wg.Done()
+			if all_tiles_count_one(tiles, claim) {
+				fmt.Println(claim.id)
+				os.Exit(0)
+			}
+		}()
 	}
+
+	wg.Wait()
 }
