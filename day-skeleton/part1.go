@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-
 	"aoccommon"
+	"fmt"
 )
 
 func part1() {
