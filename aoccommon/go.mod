@@ -1,4 +1,4 @@
-module github.com/RoystonS/aoc-go/aoccommon
+module aoccommon
 
 go 1.19
 

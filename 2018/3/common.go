@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/RoystonS/aoc-go/aoccommon"
+	"aoccommon"
 )
 
 type Claim struct {

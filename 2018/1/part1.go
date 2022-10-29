@@ -1,9 +1,8 @@
 package main
 
 import (
+	"aoccommon"
 	"fmt"
-
-	"github.com/RoystonS/aoc-go/aoccommon"
 )
 
 func part1() {

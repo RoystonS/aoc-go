@@ -1,6 +1,6 @@
 package main
 
-import "github.com/RoystonS/aoc-go/aoccommon"
+import "aoccommon"
 
 // Counts the number of times each letter (rune) appears in a string
 func count_letters(s string) map[rune]int {
