@@ -18,5 +18,5 @@ func TestPart1(t *testing.T) {
 	aoccommon.CheckError(err)
 
 	value := computePart1(lines)
-	assert.Equal(value, 42)
+	assert.Equal(42, value)
 }
