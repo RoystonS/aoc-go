@@ -8,5 +8,7 @@ import (
 func part2() {
 	lines, err := aoccommon.ReadLines("input")
 	aoccommon.CheckError(err)
-	fmt.Printf("part2; lines: %d\n", len(lines))
+
+	result := computePart2(lines)
+	fmt.Printf("%d\n", result)
 }

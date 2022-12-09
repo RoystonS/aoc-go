@@ -7,10 +7,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func computePart1(lines []string) int {
-	return 42
-}
-
 func TestPart1(t *testing.T) {
 	assert := assert.New(t)
 
