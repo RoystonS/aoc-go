@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoccommon"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -36,16 +37,12 @@ func (dir *Directory) name() string {
 func (dir *Directory) totalSize() uint64 {
 	var total uint64 = 0
 
-	childDirNode := dir.childDirectories.Front
-	for childDirNode != nil {
-		total += childDirNode.Value.totalSize()
-		childDirNode = childDirNode.Next
+	for dir := range aoccommon.IterateList(dir.childDirectories) {
+		total += dir.totalSize()
 	}
 
-	childFileNode := dir.childFiles.Front
-	for childFileNode != nil {
-		total += childFileNode.Value.size
-		childFileNode = childFileNode.Next
+	for file := range aoccommon.IterateList(dir.childFiles) {
+		total += file.size
 	}
 
 	return total

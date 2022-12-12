@@ -23,7 +23,7 @@ type Monkey struct {
 	falseDestination int
 }
 
-func parseMonkeys(lines []string) *[]*Monkey {
+func parseMonkeys(lines []string) []*Monkey {
 	startingItemsRe := regexp.MustCompile(`Starting items: (.*)`)
 	operationRe := regexp.MustCompile(`Operation: new = old (.) (.*)`)
 	testRe := regexp.MustCompile(`Test: divisible by (\d+)`)
@@ -100,7 +100,7 @@ func parseMonkeys(lines []string) *[]*Monkey {
 
 func run(lines []string, roundCount int, doReduceWorryLevel bool) int {
 	monkeys := parseMonkeys(lines)
-	inspectionCounts := make([]int, len(*monkeys))
+	inspectionCounts := make([]int, len(monkeys))
 
 	runMonkeyRounds(monkeys, inspectionCounts, roundCount, doReduceWorryLevel)
 
@@ -112,7 +112,7 @@ func run(lines []string, roundCount int, doReduceWorryLevel bool) int {
 	return inspectionCounts[len(inspectionCounts)-2] * inspectionCounts[len(inspectionCounts)-1]
 }
 
-func runMonkeyRounds(monkeys *[]*Monkey, inspectionCounts []int, roundCount int, doReduceWorryLevel bool) {
+func runMonkeyRounds(monkeys []*Monkey, inspectionCounts []int, roundCount int, doReduceWorryLevel bool) {
 
 	// For part 2, the numbers we'll be dealing with are _HUGE_, so instead of
 	// keeping their full numbers, we'll just keep them modulo some value.
@@ -124,12 +124,12 @@ func runMonkeyRounds(monkeys *[]*Monkey, inspectionCounts []int, roundCount int,
 	// i.e. we can do all of the arithmetic (for part 2) modulo the product of all the test divisors
 	// (This wouldn't work for part 1 as that's doing rounded division by 3)
 	part2CommonModulus := 1
-	for _, monkey := range *monkeys {
+	for _, monkey := range monkeys {
 		part2CommonModulus *= monkey.testDivisibleBy
 	}
 
 	for round := 0; round < roundCount; round++ {
-		for monkeyId, monkey := range *monkeys {
+		for monkeyId, monkey := range monkeys {
 			itemNode := monkey.items.Front
 			for itemNode != nil {
 				nextNode := itemNode.Next
@@ -157,7 +157,7 @@ func runMonkeyRounds(monkeys *[]*Monkey, inspectionCounts []int, roundCount int,
 				monkey.items.Remove(itemNode)
 
 				// To the target
-				(*monkeys)[targetMonkey].items.PushBack(itemNode.Value)
+				monkeys[targetMonkey].items.PushBack(itemNode.Value)
 				// fmt.Printf("Monkey %d throwing item with worry level %d to monkey %d\n", monkeyId, newWorryLevel, targetMonkey)
 				itemNode = nextNode
 			}

@@ -32,34 +32,6 @@ func (elf Elf) total() int {
 	return tot
 }
 
-func listLen[T any](list *list.List[T]) int {
-	count := 0
-
-	node := list.Front
-	for node != nil {
-		count++
-		node = node.Next
-	}
-
-	return count
-}
-
-func toArray[V any](list *list.List[V]) []V {
-	length := listLen(list)
-
-	arr := make([]V, length)
-
-	firstNode := list.Front
-	i := 0
-
-	firstNode.Each(func(val V) {
-		arr[i] = val
-		i++
-	})
-
-	return arr
-}
-
 func parse(lines []string) *list.List[*Elf] {
 	elves := list.New[*Elf]()
 
@@ -89,11 +61,11 @@ func computePart1(lines []string) int {
 
 func sortedElves(lines []string) []*Elf {
 	elves := parse(lines)
-	elvesArray := toArray(elves)
+	elvesArray := aoccommon.ToArray(elves, 0)
 
 	sort.SliceStable(elvesArray, func(i int, j int) bool {
-		e1 := (elvesArray)[i]
-		e2 := (elvesArray)[j]
+		e1 := elvesArray[i]
+		e2 := elvesArray[j]
 		return e1.total() > e2.total()
 	})
 

@@ -24,7 +24,7 @@ func CountList[T any](list *list.List[T]) int {
 }
 
 // Go doesn't have EITHER overloading or default parameter values!?
-func ToArray[T any](l *list.List[T], count int) *[]T {
+func ToArray[T any](l *list.List[T], count int) []T {
 	if count == 0 {
 		count = CountList(l)
 	}
@@ -37,5 +37,5 @@ func ToArray[T any](l *list.List[T], count int) *[]T {
 		i++
 	}
 
-	return &array
+	return array
 }

@@ -68,7 +68,7 @@ func runPart1(instructions *list.List[Instruction]) int {
 	sumOfStrengths := 0
 	nextCycleToGrab := 20
 
-	for i := range iterateList(instructions) {
+	for i := range aoccommon.IterateList(instructions) {
 		xBefore := registers["x"]
 		i.execute(&registers)
 		pc := registers[PCRegister]
@@ -97,7 +97,7 @@ func runPart2(instructions *list.List[Instruction]) []rune {
 	}
 	drawnPc := 1
 
-	for i := range iterateList(instructions) {
+	for i := range aoccommon.IterateList(instructions) {
 		xBefore := registers["x"]
 
 		i.execute(&registers)
@@ -127,19 +127,6 @@ func toScreen(screenMemory []rune) string {
 	}
 
 	return result
-}
-
-func iterateList[T any](list *list.List[T]) <-chan T {
-	ch := make(chan T)
-	go func() {
-		node := list.Front
-		for node != nil {
-			ch <- node.Value
-			node = node.Next
-		}
-		close(ch)
-	}()
-	return ch
 }
 
 func computePart1(lines []string) int {
